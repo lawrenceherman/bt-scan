@@ -18,31 +18,43 @@ class ViewController: UIViewController {
 
     view.backgroundColor = UIColor.red
 
-
     centralManager = CBCentralManager(delegate: self, queue: nil)
-  
- 
-  
-  
+    
+
   }
-
-  
-
-
 }
 
 extension ViewController: CBCentralManagerDelegate {
   
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
-    print("central is scanning -\(central.isScanning)")
-    
-    print("central state \(central.state)")
-  
-  
-  }
-  
-  
 
+    switch central.state {
+    case .unknown:
+      print("central.state is .unknown")
+    case .resetting:
+      print("central.state is .resetting")
+    case .unsupported:
+      print("central.state is .unsupported")
+    case .unauthorized:
+      print("central.state is .unauthorized")
+    case .poweredOff:
+      print("central.state is .poweredOff")
+    case .poweredOn:
+      print("central.state is .poweredOn")
+      centralManager.scanForPeripherals(withServices: nil, options: nil)
+    }
+  }
+
+  func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    
+    print("central \(central)")
+    print("peripheral \(peripheral)")
+    print("advertisementData \(advertisementData)")
+    print("RSSI \(RSSI)")
+    
+    centralManager.stopScan()
+//    print("test")
+  }
 
 
 
