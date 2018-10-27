@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let firstVC = ViewController()
     window?.rootViewController = firstVC
   
-    
-    
+
 //      These keys are passed to the options dictionary passed to the application(_:willFinishLaunchingWithOptions:) and application(_:didFinishLaunchingWithOptions:) methods of the app delegate
 //    static let bluetoothPeripherals: UIApplication.LaunchOptionsKey
 //    A key indicating that the app should continue actions associated with its Bluetooth peripheral objects.
@@ -30,10 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    A key indicating that the app received a CloudKit share invitation.
     
 
-//
 //    An iOS app linked on or after iOS 10.0 must include in its Info.plist file the usage description keys for the types of data it needs to access or it will crash. To access Bluetooth peripheral data specifically, it must include NSBluetoothPeripheralUsageDescription.
-
-
 
     return true
   }

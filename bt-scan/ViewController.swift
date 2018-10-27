@@ -12,6 +12,7 @@ import CoreBluetooth
 class ViewController: UIViewController {
   
   var centralManager: CBCentralManager!
+  var tempPeripheral: CBPeripheral!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,8 +20,18 @@ class ViewController: UIViewController {
     view.backgroundColor = UIColor.red
 
     centralManager = CBCentralManager(delegate: self, queue: nil)
-    
 
+  }
+}
+
+extension ViewController: CBPeripheralDelegate {
+  
+  func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+    if let services = peripheral.services {
+      for service in services {
+        print(service)
+      }
+    }
   }
 }
 
@@ -49,12 +60,44 @@ extension ViewController: CBCentralManagerDelegate {
     
     print("central \(central)")
     print("peripheral \(peripheral)")
+  
+    
+    
     print("advertisementData \(advertisementData)")
     print("RSSI \(RSSI)")
-    
+//
     centralManager.stopScan()
-//    print("test")
+    tempPeripheral = peripheral
+    tempPeripheral.delegate = self
+    
+    
+    
+    
+//
+    centralManager.connect(tempPeripheral, options: nil)
+    
+    
+    
+    print("test")
   }
+
+  func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+    print("connected")
+    peripheral.discoverServices(nil)
+    peripheral.discoverCharacteristics(<#T##characteristicUUIDs: [CBUUID]?##[CBUUID]?#>, for: <#T##CBService#>)
+  }
+  
+  func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+    print("failed to conenct")
+  }
+
+
+
+
+
+
+
+
 
 
 
